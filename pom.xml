@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.auth</groupId>
     <artifactId>auth</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>abe-pay</version>
     <name>auth</name>
     <description>auth</description>
     <properties>
