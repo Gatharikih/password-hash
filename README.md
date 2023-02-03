@@ -86,6 +86,6 @@ The app has been written and compiles using:
 
 Please verify that the JAVA version you are using is a stable version; Unstable versions are currently not supported and issues created while using an unstable version will be closed.
 
-If you are on a stable version of NoJAVAdeJS, please provide a sufficient code snippet or log files for installation issues. 
+If you are on a stable version of JAVA, please provide a sufficient code snippet or log files for installation issues. 
 
 The code snippet does not require you to include confidential information. However, it must provide enough information so the problem can be replicable, or it may be closed without an explanation.
