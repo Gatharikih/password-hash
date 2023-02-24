@@ -37,7 +37,8 @@ public class MainController {
             responseStatus = 200;
             responseBody = hashedPasswd;
         }catch (Exception e){
-            logger.error(e);
+            logger.error(e.getMessage());
+            logger.traceEntry(e.getMessage());
 
             return handleAllExceptions(e);
         }
