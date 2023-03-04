@@ -1,8 +1,8 @@
 package com.auth.auth.controllers;
 
 import com.auth.auth.models.DefaultResponse;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MainController {
-    Gson gson = new Gson();
     private int responseStatus;
     private String responseBody;
     Logger logger = LogManager.getLogger(MainController.class);
@@ -27,11 +26,14 @@ public class MainController {
      * @return return HTTP Response - DefaultResponse object - with hashed password
      */
     @PostMapping("/passwd/hash")
-    ResponseEntity<DefaultResponse> hashPassword(@RequestBody String passwdBody) {
+    ResponseEntity<DefaultResponse> hashPassword(@RequestBody Object passwdBody) {
         try {
             logger.error(passwdBody);
 
-            String passwd = gson.fromJson(passwdBody, JsonObject.class).get("passwd").getAsString();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode passwordBodyJsonNode = objectMapper.readTree(objectMapper.writeValueAsString(passwdBody));
+
+            String passwd = passwordBodyJsonNode.get("passwd").asText();
             String hashedPasswd = _hashPassword(passwd);
 
             responseStatus = 200;
@@ -54,12 +56,15 @@ public class MainController {
      * @return return HTTP Response - DefaultResponse object - with hashed password
      */
     @PostMapping("/passwd/confirm")
-    ResponseEntity<DefaultResponse> comparePassword(@RequestBody String passwdBody) {
+    ResponseEntity<DefaultResponse> comparePassword(@RequestBody Object passwdBody) {
         try {
-//            logger.error(passwdBody);
+            logger.error(passwdBody);
 
-            String passwd = gson.fromJson(passwdBody, JsonObject.class).get("passwd").getAsString();
-            String passwdHash = gson.fromJson(passwdBody, JsonObject.class).get("hash").getAsString();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode passwordBodyJsonNode = objectMapper.readTree(objectMapper.writeValueAsString(passwdBody));
+
+            String passwd = passwordBodyJsonNode.get("passwd").asText();
+            String passwdHash = passwordBodyJsonNode.get("hash").asText();
 
             boolean match = _comparePassword(passwd, passwdHash);
 
@@ -87,13 +92,16 @@ public class MainController {
      * @return return HTTP Response - DefaultResponse object - with hashed password
      */
     @PostMapping("/passwd/update")
-    ResponseEntity<DefaultResponse> updatePassword(@RequestBody String passwdBody) {
+    ResponseEntity<DefaultResponse> updatePassword(@RequestBody Object passwdBody) {
         try {
             logger.error(passwdBody);
 
-            String passwd = gson.fromJson(passwdBody, JsonObject.class).get("passwd").getAsString();
-            String passwdHash = gson.fromJson(passwdBody, JsonObject.class).get("hash").getAsString();
-            String newPasswd = gson.fromJson(passwdBody, JsonObject.class).get("new_passwd").getAsString();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode passwordBodyJsonNode = objectMapper.readTree(objectMapper.writeValueAsString(passwdBody));
+
+            String passwd = passwordBodyJsonNode.get("passwd").asText();
+            String passwdHash = passwordBodyJsonNode.get("hash").asText();
+            String newPasswd = passwordBodyJsonNode.get("new_passwd").asText();
 
             boolean match = _comparePassword(passwd, passwdHash);
 
