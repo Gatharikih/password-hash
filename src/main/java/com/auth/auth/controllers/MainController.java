@@ -33,7 +33,7 @@ public class MainController {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode passwordBodyJsonNode = objectMapper.readTree(passwdBody);
 
-            String passwd = passwordBodyJsonNode.get("passwd").asText();
+            String passwd = passwordBodyJsonNode.get("passwd").asText("");
             String hashedPasswd = _hashPassword(passwd);
 
             responseStatus = 200;
@@ -63,8 +63,8 @@ public class MainController {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode passwordBodyJsonNode = objectMapper.readTree(passwdBody);
 
-            String passwd = passwordBodyJsonNode.get("passwd").asText();
-            String passwdHash = passwordBodyJsonNode.get("hash").asText();
+            String passwd = passwordBodyJsonNode.get("passwd").asText("");
+            String passwdHash = passwordBodyJsonNode.get("hash").asText("");
 
             boolean match = _comparePassword(passwd, passwdHash);
 
@@ -99,9 +99,9 @@ public class MainController {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode passwordBodyJsonNode = objectMapper.readTree(passwdBody);
 
-            String passwd = passwordBodyJsonNode.get("passwd").asText();
-            String passwdHash = passwordBodyJsonNode.get("hash").asText();
-            String newPasswd = passwordBodyJsonNode.get("new_passwd").asText();
+            String passwd = passwordBodyJsonNode.get("passwd").asText("");
+            String passwdHash = passwordBodyJsonNode.get("hash").asText("");
+            String newPasswd = passwordBodyJsonNode.get("new_passwd").asText("");
 
             boolean match = _comparePassword(passwd, passwdHash);
 
