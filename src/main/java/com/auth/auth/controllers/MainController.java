@@ -26,12 +26,12 @@ public class MainController {
      * @return return HTTP Response - DefaultResponse object - with hashed password
      */
     @PostMapping("/passwd/hash")
-    ResponseEntity<DefaultResponse> hashPassword(@RequestBody Object passwdBody) {
+    ResponseEntity<DefaultResponse> hashPassword(@RequestBody String passwdBody) {
         try {
             logger.error(passwdBody);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode passwordBodyJsonNode = objectMapper.readTree(objectMapper.writeValueAsString(passwdBody));
+            JsonNode passwordBodyJsonNode = objectMapper.readTree(passwdBody);
 
             String passwd = passwordBodyJsonNode.get("passwd").asText();
             String hashedPasswd = _hashPassword(passwd);
@@ -56,12 +56,12 @@ public class MainController {
      * @return return HTTP Response - DefaultResponse object - with hashed password
      */
     @PostMapping("/passwd/confirm")
-    ResponseEntity<DefaultResponse> comparePassword(@RequestBody Object passwdBody) {
+    ResponseEntity<DefaultResponse> comparePassword(@RequestBody String passwdBody) {
         try {
             logger.error(passwdBody);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode passwordBodyJsonNode = objectMapper.readTree(objectMapper.writeValueAsString(passwdBody));
+            JsonNode passwordBodyJsonNode = objectMapper.readTree(passwdBody);
 
             String passwd = passwordBodyJsonNode.get("passwd").asText();
             String passwdHash = passwordBodyJsonNode.get("hash").asText();
@@ -92,12 +92,12 @@ public class MainController {
      * @return return HTTP Response - DefaultResponse object - with hashed password
      */
     @PostMapping("/passwd/update")
-    ResponseEntity<DefaultResponse> updatePassword(@RequestBody Object passwdBody) {
+    ResponseEntity<DefaultResponse> updatePassword(@RequestBody String passwdBody) {
         try {
             logger.error(passwdBody);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode passwordBodyJsonNode = objectMapper.readTree(objectMapper.writeValueAsString(passwdBody));
+            JsonNode passwordBodyJsonNode = objectMapper.readTree(passwdBody);
 
             String passwd = passwordBodyJsonNode.get("passwd").asText();
             String passwdHash = passwordBodyJsonNode.get("hash").asText();
