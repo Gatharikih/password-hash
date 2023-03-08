@@ -8,13 +8,14 @@ The app is API based **by design**. It could have been anything; a module, a lib
 
 ## **Motivation**
 
-This project came about after experiencing issues with the Javascript's [Bcrypt](https://www.npmjs.com/package/bcrypt) library meant to hash and compare passwords. 
+This project came about after experiencing issues with the Javascript's [Bcrypt](https://www.npmjs.com/package/bcrypt) library meant to hash and compare passwords.
 
 I realized that sometimes the library gives false negatives i.e. when a password is hashed, comparing the same plain text password against its corresponding hash gives a false result. View the library issue [here](https://github.com/kelektiv/node.bcrypt.js/issues/906).
 
 ---
 
 ### **Building & running**
+
 To run build the project from the cmd/terminal, **Maven** should be available in the **PATH**.
 
 From the root directory:
@@ -25,9 +26,10 @@ From the root directory:
 
 * Alternatively, you can build the JAR file with **mvn clean package** and then run the JAR file, as follows:
 
-> java -jar target/drone_service 0.0.1-SNAPSHOT.jar 
+> java -jar target/drone_service 0.0.1-SNAPSHOT.jar
 
 * Run tests, navigate to the root directory and run the following command:
+
 >mvn test
 
 By default, the app runs on port **8081**, you can however change this from the **application.properties** file in the **resources** directory.
@@ -35,6 +37,7 @@ By default, the app runs on port **8081**, you can however change this from the 
 ---
 
 ## **Usage**
+
 ### **1. Hash password**
 
 Send an HTTP POST request to endpoint - **/passwd/hash** with the body containing the plain text password string.
@@ -42,6 +45,7 @@ Send an HTTP POST request to endpoint - **/passwd/hash** with the body containin
 > curl -X POST -H 'Content-Type: application/json' -d '{"passwdBody": "YOUR_PLAINTEXT_PASSWORD_HERE"}'
 
 The server responds with an HTTP response consisting of:
+
 * HTTP status code (200 for success, other code for error)
 * JSON response body (hashed password string on success, otherwise an error).
 
@@ -52,6 +56,7 @@ Send an HTTP POST request to endpoint - **/passwd/confirm** with the JSON body c
 > curl -X POST -H 'Content-Type: application/json' -d '{"passwd": "YOUR_PLAINTEXT_PASSWORD_HERE", "hash": "YOUR_PASSWORD_HASH_HERE"}'
 
 The server responds with an HTTP response consisting of:
+
 * HTTP status code (200 for true, 401 for false, other code for error)
 * JSON response body (hashed password string on success, otherwise an error).
 
@@ -64,6 +69,7 @@ Send an HTTP POST request to endpoint - **/passwd/update** with the JSON body co
 > curl -X POST -H 'Content-Type: application/json' -d '{"passwd": "YOUR_PLAINTEXT_PASSWORD_HERE", "hash": "YOUR_PASSWORD_HASH_HERE", "new_passwd": "YOUR_NEW_PLAINTEXT_PASSWORD_HERE"}'
 
 The server responds with an HTTP response consisting of:
+
 * HTTP status code (200 for success, 401 for incorrect password, other code for error)
 * JSON response body (hashed password string on success, otherwise an error).
 
@@ -74,6 +80,7 @@ All passwords are hashed using a salt with 10 rounds.
 ### **Version Compatibility**
 
 The app has been written and compiles using:
+
 * JAVA version 17.
 * Spring Boot version 3.0.2
 
@@ -85,6 +92,6 @@ The app has been written and compiles using:
 
 Please verify that the JAVA version you are using is a stable version; Unstable versions are currently not supported and issues created while using an unstable version will be closed.
 
-If you are on a stable version of JAVA, please provide a sufficient code snippet or log files for installation issues. 
+If you are on a stable version of JAVA, please provide a sufficient code snippet or log files for installation issues.
 
 The code snippet does not require you to include confidential information. However, it must provide enough information so the problem can be replicable, or it may be closed without an explanation.
