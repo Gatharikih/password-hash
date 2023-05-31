@@ -1,0 +1,14 @@
+[Unit]
+Description=A Spring Boot API to hash, reset and update user passwords
+#After=syslog.target
+
+[Service]
+User=root
+ExecStart=java -jar /root/myFiles/password-hash/target/auth-abe-pay.jar
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+
+
