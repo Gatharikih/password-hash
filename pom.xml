@@ -13,6 +13,7 @@
     <version>abe-pay</version>
     <name>auth</name>
     <description>auth</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>
