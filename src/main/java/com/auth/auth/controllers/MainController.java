@@ -131,11 +131,20 @@ public class MainController {
         return ResponseEntity.status(500).body(new DefaultResponse(exception.getMessage()));
     }
 
-    private String _hashPassword(String password){
+    /** Hash a password using BCrypt.
+     * @param password plain text password
+     * @return hashed password
+     */
+    public static String hashPassword(String password){
         return BCrypt.hashpw(password, BCrypt.gensalt(10));
     }
 
-    private boolean _comparePassword(String password, String passwordHash){
+    /** Compare a plain text password with a hashed password using BCrypt
+     * @param password plain text password
+     * @param passwordHash hashed password
+     * @return true if they match, false otherwise.
+     */
+    public static boolean comparePassword(String password, String passwordHash){
         return BCrypt.checkpw(password, passwordHash);
     }
 }
